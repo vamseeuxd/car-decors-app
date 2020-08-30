@@ -57,11 +57,51 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Buttons',
-        link: '/pages/forms/buttons',
+        link: '/pages/forms/manage-product',
       },
       {
         title: 'Datepicker',
         link: '/pages/forms/datepicker',
+      },
+    ],
+  },
+  {
+    title: 'Products',
+    icon: 'grid-outline',
+    children: [
+      {
+        title: 'Manage Categories',
+        link: '/pages/products/manage-categories',
+      },
+      {
+        title: 'Manage SubCategories',
+        link: '/pages/products/manage-subcategories',
+      },
+      {
+        title: 'Manage Product',
+        link: '/pages/products/manage-product',
+      },
+    ],
+  },
+  {
+    title: 'staff',
+    icon: 'people-outline',
+    children: [
+      {
+        title: 'Form Inputs',
+        link: '/pages/staff/inputs',
+      },
+      {
+        title: 'Form Layouts',
+        link: '/pages/staff/layouts',
+      },
+      {
+        title: 'Buttons',
+        link: '/pages/staff/manage-product',
+      },
+      {
+        title: 'Datepicker',
+        link: '/pages/staff/datepicker',
       },
     ],
   },

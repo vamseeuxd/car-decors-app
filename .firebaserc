@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "car-decors": {
+      "hosting": {
+        "car-decors-app-demo": [
+          "car-decors"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "car-decors"
+  }
+}

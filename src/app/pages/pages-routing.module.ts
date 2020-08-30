@@ -29,6 +29,16 @@ const routes: Routes = [{
         .then(m => m.FormsModule),
     },
     {
+      path: 'products',
+      loadChildren: () => import('./products/products.module')
+        .then(m => m.ProductsModule),
+    },
+    {
+      path: 'staff',
+      loadChildren: () => import('./staff/forms.module')
+        .then(m => m.FormsModule),
+    },
+    {
       path: 'ui-features',
       loadChildren: () => import('./ui-features/ui-features.module')
         .then(m => m.UiFeaturesModule),
