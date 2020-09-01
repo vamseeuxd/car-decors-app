@@ -18,6 +18,7 @@ import { ManageCategoriesComponent } from './manage-categories/manage-categories
 import { ManageSubcategoriesComponent } from './manage-subcategories/manage-subcategories.component';
 import { ManageProductComponent } from './manage-product/manage-product.component';
 import { FormsModule as ngFormsModule } from '@angular/forms';
+import {AngularFireModule} from '@angular/fire';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { FormsModule as ngFormsModule } from '@angular/forms';
     NbSelectModule,
     NbIconModule,
     ngFormsModule,
+    AngularFireModule,
   ],
   declarations: [
     ProductsComponent,

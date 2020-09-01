@@ -10,6 +10,7 @@ import { MENU_ITEMS } from './pages-menu';
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-one-column-layout>
+    <ngx-busy-indicator></ngx-busy-indicator>
   `,
 })
 export class PagesComponent {
