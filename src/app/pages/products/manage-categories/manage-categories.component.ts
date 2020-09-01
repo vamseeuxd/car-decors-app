@@ -21,13 +21,21 @@ export class ManageCategoriesComponent {
 
   private itemsCollection: AngularFirestoreCollection<ProductCategoryInterface>;
   productCategories$: Observable<ProductCategoryInterface[]>;
+  timestamp;
+  productCategoryIdToEdit = '';
 
   constructor(
     public firestore: AngularFirestore,
     public busyIndicatorService: BusyIndicatorService,
   ) {
     this.itemsCollection = firestore.collection<ProductCategoryInterface>('product-categories', ref => {
-      return ref.orderBy('name').where('deleted', '==', false);
+      this.timestamp = firebase.firestore.Timestamp.now().seconds * 1000;
+      // console.log('timestamp', this.timestamp);
+      return ref
+        /*.orderBy('createdOn')
+        .where('createdOn', '<', this.timestamp)*/
+        .orderBy('name')
+        .where('deleted', '==', false);
     });
     this.productCategories$ = this.itemsCollection.valueChanges();
   }
@@ -38,8 +46,8 @@ export class ManageCategoriesComponent {
       const busyIndicatorId = this.busyIndicatorService.show();
       const id = this.firestore.createId();
       const deleted = false;
-      const createdOn = new Date(firebase.firestore.Timestamp.now().seconds * 1000).toISOString();
-      const updatedOn = new Date(firebase.firestore.Timestamp.now().seconds * 1000).toISOString();
+      const createdOn = new Date(firebase.firestore.Timestamp.now().seconds * 1000).getTime(); // .toISOString();
+      const updatedOn = new Date(firebase.firestore.Timestamp.now().seconds * 1000).getTime(); // .toISOString();
       try {
         const response = await this.firestore.collection('product-categories').doc(id).set(
           {name, createdOn, id, deleted, updatedOn},
@@ -53,11 +61,28 @@ export class ManageCategoriesComponent {
     }
   }
 
+  async updateItem(updateProductCategory: HTMLInputElement, id: string) {
+    if (updateProductCategory.value.trim().length > 0) {
+      const name = updateProductCategory.value.trim();
+      const busyIndicatorId = this.busyIndicatorService.show();
+      const updatedOn = new Date(firebase.firestore.Timestamp.now().seconds * 1000).getTime(); // .toISOString();
+      try {
+        const response = await this.itemsCollection.doc(id).update({name, updatedOn});
+        updateProductCategory.value = '';
+        this.productCategoryIdToEdit = '';
+        this.busyIndicatorService.hide(busyIndicatorId);
+      } catch (e) {
+        console.error(e);
+        this.busyIndicatorService.hide(busyIndicatorId);
+      }
+    }
+  }
+
   async deleteItem(id: string) {
     const isConfirmed = confirm('Are you sure! Do you want to delete?');
     if (isConfirmed) {
       const busyIndicatorId = this.busyIndicatorService.show();
-      const updatedOn = new Date(firebase.firestore.Timestamp.now().seconds * 1000).toISOString();
+      const updatedOn = new Date(firebase.firestore.Timestamp.now().seconds * 1000).getTime(); // .toISOString();
       try {
         const response = await this.itemsCollection.doc(id).update({deleted: true, updatedOn});
         this.busyIndicatorService.hide(busyIndicatorId);

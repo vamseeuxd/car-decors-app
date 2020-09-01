@@ -1,5 +1,5 @@
 <div class="lists row">
-  <div class="col-md-12 col-lg-6 col-xxxl-6 offset-lg-3 offset-xxxl-3">
+  <div class="col-md-12 col-lg-8 col-xxxl-6 offset-lg-2 offset-xxxl-3">
     <nb-card class="list-card">
       <nb-card-header>Manage Product Categories</nb-card-header>
       <nb-card-body>
@@ -11,23 +11,44 @@
                      id="newProductCategory" placeholder="New Product Category">
             </div>
             <div class="text-right">
-              <button (click)="addItem(newProductCategory)" [disabled]="newProductCategory.value.length == 0" class="btn btn-primary">Add</button>
+              <button (click)="addItem(newProductCategory)" [disabled]="newProductCategory.value.length == 0" class="btn btn-primary btn-sm">Add</button>
             </div>
           </li>
-          <ul class="list-group m-3" *ngIf="productCategories$ | async as productCategories">
+          <ul class="list-group m-3" *ngIf="productCategories$ | async as productCategories" style="overflow-y: auto;max-height: calc( 100vh - 370px);">
             <!--<pre>{{productCategories | json}}</pre>-->
             <li class="list-group-item d-flex justify-content-between align-items-center"
                 *ngFor="let productCategory of productCategories">
-              <pre>{{ productCategory | json }}</pre>
-              <!--{{productCategory.createdOn | date:'dd-MMM-yyyy hh-mm-ss'}}-->
-              <div>
-                <button class="btn btn-warning btn-sm mr-2">
-                  <i class="fa fa-edit"></i>
-                </button>
-                <button class="btn btn-danger btn-sm" (click)="deleteItem(productCategory.id)">
-                  <i class="fa fa-trash"></i>
-                </button>
-              </div>
+              <ng-container *ngIf="productCategoryIdToEdit != productCategory.id">
+                <label>{{productCategory.name}}</label>
+                <!--| {{productCategory.createdOn | date:'dd-MMM-yyyy hh:mm:ss'}} < {{timestamp | date:'dd-MMM-yyyy hh:mm:ss'}}-->
+                <!--<pre class="bg-danger text-warning p-3">{{ productCategory | json }}</pre>-->
+                <!--{{productCategory.createdOn | date:'dd-MMM-yyyy hh-mm-ss'}}-->
+                <div>
+                  <button class="btn btn-warning btn-sm mr-2" (click)="productCategoryIdToEdit = productCategory.id">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteItem(productCategory.id)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="productCategoryIdToEdit == productCategory.id">
+                <div class="w-100">
+                  <div class="form-group">
+                    <label for="newProductCategory" class="label">Update Product Category</label>
+                    <input (keyup.enter)="updateItem(updateProductCategory, productCategory.id)" type="text"
+                           [defaultValue]="productCategory.name"
+                           #updateProductCategory nbInput fullWidth
+                           id="updateProductCategory" placeholder="Update Product Category">
+                  </div>
+                  <div class="text-right">
+                    <button (click)="updateItem(updateProductCategory, productCategory.id)"
+                            [disabled]="updateProductCategory.value.length == 0 || updateProductCategory.value == productCategory.name"
+                            class="btn btn-primary btn-sm mr-3">Update</button>
+                    <button (click)="productCategoryIdToEdit = ''" class="btn btn-dark btn-sm">Cancel</button>
+                  </div>
+                </div>
+              </ng-container>
             </li>
           </ul>
         </ul>
