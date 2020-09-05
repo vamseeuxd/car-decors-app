@@ -1,6 +1,9 @@
-import { NbMenuItem } from '@nebular/theme';
+import {NbMenuItem} from '@nebular/theme';
+import {environment} from '../../environments/environment';
 
-export const MENU_ITEMS: NbMenuItem[] = [
+const itemsInProduction = ['Products', 'E-commerce'];
+// export const MENU_ITEMS: NbMenuItem[] = [
+export const MENU_ITEMS = [
   {
     title: 'E-commerce',
     icon: 'shopping-cart-outline',
@@ -284,4 +287,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-];
+].filter(d => {
+  if (environment.production) {
+    return itemsInProduction.indexOf(d.title) >= 0;
+  } else {
+    return true;
+  }
+});
+
