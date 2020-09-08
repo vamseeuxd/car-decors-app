@@ -1,0 +1,60 @@
+<div class="lists row">
+  <div class="col-md-12 col-lg-8 col-xxxl-6 offset-lg-2 offset-xxxl-3">
+    <nb-card class="list-card">
+      <nb-card-header>Manage Brands</nb-card-header>
+      <nb-card-body>
+        <ul class="list-group m-2">
+          <li class="list-group-item border-top-0 border-left-0 border-right-0">
+            <div class="form-group">
+              <label for="newBrand" class="label">New Brand</label>
+              <input (keyup.enter)="addItem(newBrand)" type="text" #newBrand nbInput fullWidth
+                     autocomplete="off"
+                     id="newBrand" placeholder="New Brand">
+            </div>
+            <div class="text-right">
+              <button (click)="addItem(newBrand)" [disabled]="newBrand.value.length == 0" class="btn btn-primary btn-sm">Add</button>
+            </div>
+          </li>
+          <ul class="list-group m-3" *ngIf="brands$ | async as brands" style="overflow-y: auto; max-height: calc( 100vh - 375px);">
+            <!--<pre>{{brands | json}}</pre>-->
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+                *ngFor="let brand of brands">
+              <ng-container *ngIf="brandIdToEdit != brand.id">
+                <label>{{brand.name}}</label>
+                <!--| {{brand.createdOn | date:'dd-MMM-yyyy hh:mm:ss'}} < {{timestamp | date:'dd-MMM-yyyy hh:mm:ss'}}-->
+                <!--<pre class="bg-danger text-warning p-3">{{ brand | json }}</pre>-->
+                <!--{{brand.createdOn | date:'dd-MMM-yyyy hh-mm-ss'}}-->
+                <div>
+                  <button class="btn btn-warning btn-sm mr-2" (click)="brandIdToEdit = brand.id">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteItem(brand.id)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="brandIdToEdit == brand.id">
+                <div class="w-100">
+                  <div class="form-group">
+                    <label for="newBrand" class="label">Update Brand</label>
+                    <input (keyup.enter)="updateItem(updateBrand, brand.id)" type="text"
+                           autocomplete="off"
+                           [defaultValue]="brand.name"
+                           #updateBrand nbInput fullWidth
+                           id="updateBrand" placeholder="Update Brand">
+                  </div>
+                  <div class="text-right">
+                    <button (click)="updateItem(updateBrand, brand.id)"
+                            [disabled]="updateBrand.value.length == 0 || updateBrand.value == brand.name"
+                            class="btn btn-primary btn-sm mr-3">Update</button>
+                    <button (click)="brandIdToEdit = ''" class="btn btn-dark btn-sm">Cancel</button>
+                  </div>
+                </div>
+              </ng-container>
+            </li>
+          </ul>
+        </ul>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

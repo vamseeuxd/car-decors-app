@@ -1,122 +1,113 @@
-<div class="row">
-  <div class="col-lg-12">
-    <nb-card>
-      <nb-card-header>Hero Buttons</nb-card-header>
+<div class="lists row">
+  <div class="col-md-12 col-lg-10 col-xxxl-8 offset-lg-1 offset-xxxl-2">
+    <nb-card class="list-card">
+      <nb-card-header>Manage Products</nb-card-header>
       <nb-card-body>
-        <div class="buttons-row">
-          <button *ngFor="let status of statuses" nbButton [status]="status" hero>
-            {{ status }}
-          </button>
-          <button disabled nbButton hero>
-            disabled
-          </button>
-        </div>
-      </nb-card-body>
-    </nb-card>
-
-    <nb-card>
-      <nb-card-header>Default Buttons</nb-card-header>
-      <nb-card-body>
-        <div class="buttons-row">
-          <button *ngFor="let status of statuses" nbButton [status]="status">
-            {{ status }}
-          </button>
-          <button disabled nbButton>
-            disabled
-          </button>
-        </div>
-      </nb-card-body>
-    </nb-card>
-
-    <nb-card>
-      <nb-card-header>Outline Buttons</nb-card-header>
-      <nb-card-body>
-        <div class="buttons-row">
-          <button *ngFor="let status of statuses" nbButton [status]="status" outline>
-            {{ status }}
-          </button>
-          <button disabled nbButton outline>
-            disabled
-          </button>
-        </div>
-      </nb-card-body>
-    </nb-card>
-
-    <nb-card>
-      <nb-card-header>Ghost Buttons</nb-card-header>
-      <nb-card-body>
-        <div class="buttons-row">
-          <button *ngFor="let status of statuses" nbButton [status]="status" ghost>
-            {{ status }}
-          </button>
-          <button disabled nbButton outline>
-            disabled
-          </button>
-        </div>
-      </nb-card-body>
-    </nb-card>
-  </div>
-
-  <div class="col-md-12 col-lg-12 col-xxxl-6">
-    <nb-card>
-      <nb-card-header>Button shapes</nb-card-header>
-      <nb-card-body>
-        <div class="buttons-row">
-          <button *ngFor="let shape of shapes" nbButton [shape]="shape">
-            {{ shape }}
-          </button>
-        </div>
-      </nb-card-body>
-    </nb-card>
-
-    <nb-card>
-      <nb-card-header>Button sizes</nb-card-header>
-      <nb-card-body>
-        <div class="buttons-row">
-          <button *ngFor="let size of sizes" nbButton [size]="size">
-            {{ size }}
-          </button>
-        </div>
-      </nb-card-body>
-    </nb-card>
-  </div>
-
-  <div class="col-md-12 col-lg-12 col-xxxl-6">
-    <nb-card class="actions-card">
-      <nb-card-header>Action Groups</nb-card-header>
-      <nb-card-body>
-        <nb-actions size="medium">
-          <nb-action icon="menu-outline"></nb-action>
-          <nb-action icon="search-outline"></nb-action>
-          <nb-action icon="email-outline"></nb-action>
-          <nb-action disabled icon="bell-outline"></nb-action><nb-action>
-          <nb-user name="Han Solo"></nb-user>
-        </nb-action>
-          <nb-action icon="settings-2-outline"></nb-action>
-        </nb-actions>
-      </nb-card-body>
-    </nb-card>
-
-    <nb-card>
-      <nb-card-body>
-        <nb-actions size="medium" fullWidth>
-          <nb-action>
-            <nb-icon class="action-icon" icon="pause-circle-outline"></nb-icon>
-            <span>Pause</span>
-          </nb-action>
-          <nb-action>
-            <nb-icon class="action-icon" icon="list-outline"></nb-icon>
-            <span>Logs</span>
-          </nb-action>
-          <nb-action>
-            <nb-icon class="action-icon" icon="search-outline"></nb-icon>
-            <span>Search</span>
-          </nb-action>
-          <nb-action>
-            <nb-icon class="action-icon" icon="settings-2-outline"></nb-icon>
-            <span>Setup</span>
-          </nb-action>
-        </nb-actions>
+        <ul class="list-group m-2">
+          <form #addNewProductSubcategoryForm="ngForm" class="list-group-item border-top-0 border-left-0 border-right-0">
+            <div class="row">
+              <div class="form-group col-md-6" *ngIf="productCategories$ | async as productCategories">
+                <label class="label">Select Product Categories</label>
+                <nb-select (selectedChange)="onSelectedProductCategory($event)" [ngModel]="selectedProductCategory" required name="category" fullWidth placeholder="Select Product Category">
+                  <nb-option [value]="productCategory.id" *ngFor="let productCategory of productCategories">{{productCategory.name}}</nb-option>
+                </nb-select>
+              </div>
+              <div class="form-group col-md-6" *ngIf="productSubcategories$ | async as productSubcategories">
+                <label class="label">Select Product Subcategory</label>
+                <nb-select required name="subcategory" [ngModel]="selectedProductSubcategory" (selectedChange)="onSelectedProductSubcategory($event)" fullWidth placeholder="Select Product Subcategory">
+                  <nb-option [value]="productSubcategory.id" *ngFor="let productSubcategory of productSubcategories">{{productSubcategory.name}}</nb-option>
+                </nb-select>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="label">New Product Name</label>
+                <input ngModel required name="name" type="text" nbInput fullWidth autocomplete="off" placeholder="New Product Name">
+              </div>
+              <div class="form-group col-md-6">
+                <label class="label">Price</label>
+                <input ngModel required name="price" type="number" nbInput fullWidth autocomplete="off" placeholder="Product Price">
+              </div>
+              <div class="form-group col-md-6">
+                <label class="label">Code</label>
+                <input ngModel required name="code" type="number" nbInput fullWidth autocomplete="off" placeholder="Product Code">
+              </div>
+              <div class="form-group col-md-6" *ngIf="brands$ | async as brands">
+                <label class="label">Brand</label>
+                <nb-select name="brand" ngModel fullWidth placeholder="Select Brand">
+                  <nb-option [value]="brand.id" *ngFor="let brand of brands">{{brand.name}}</nb-option>
+                </nb-select>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="label">Description</label>
+                <textarea ngModel name="description" nbInput fullWidth autocomplete="off" placeholder="Product Description"></textarea>
+              </div>
+              <div class="text-right col-12">
+                <button (click)="addItem(addNewProductSubcategoryForm)" [disabled]="addNewProductSubcategoryForm.invalid" class="btn btn-primary btn-sm">Add</button>
+              </div>
+            </div>
+          </form>
+          <ul class="list-group m-3" *ngIf="products$ | async as products" style="overflow-y: auto;max-height: calc( 100vh - 375px);">
+            <!--<pre>{{productSubcategories | json}}</pre>-->
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+                *ngFor="let product of products">
+              <ng-container *ngIf="productIdToEdit != product.id">
+                <label>{{product.name}}</label>
+                <div>
+                  <button class="btn btn-warning btn-sm mr-2" (click)="onUpdateCategoryChange(product.category);productIdToEdit = product.id;updateProductForm.resetForm(product)">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteItem(product.id)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </ng-container>
+              <form #updateProductForm="ngForm" class="w-100 d-none" [class.d-block]="productIdToEdit == product.id">
+                <div class="row">
+                <div class="form-group col-md-6" *ngIf="productCategories$ | async as productCategories">
+                  <label class="label">Select Product Categories</label>
+                  <nb-select (selectedChange)="onUpdateCategoryChange($event)" ngModel required name="category" fullWidth placeholder="Select Product Category">
+                    <nb-option [value]="productCategory.id" *ngFor="let productCategory of productCategories">{{productCategory.name}}</nb-option>
+                  </nb-select>
+                </div>
+                <div class="form-group col-md-6" *ngIf="productSubcategoriesForUpdate$ | async as productSubcategories">
+                  <label class="label">Select Product Subcategory</label>
+                  <nb-select required name="subcategory" ngModel fullWidth placeholder="Select Product Subcategory">
+                    <nb-option [value]="productSubcategory.id" *ngFor="let productSubcategory of productSubcategories">{{productSubcategory.name}}</nb-option>
+                  </nb-select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="label">Product Name</label>
+                  <input ngModel required name="name" type="text" nbInput fullWidth autocomplete="off" placeholder="Product Name">
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="label">Price</label>
+                  <input ngModel required name="price" type="number" nbInput fullWidth autocomplete="off" placeholder="Product Price">
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="label">Code</label>
+                  <input ngModel required name="code" type="number" nbInput fullWidth autocomplete="off" placeholder="Product Code">
+                </div>
+                <div class="form-group col-md-6" *ngIf="brands$ | async as brands">
+                  <label class="label">Brand</label>
+                  <nb-select name="brand" ngModel fullWidth placeholder="Select Brand">
+                    <nb-option [value]="brand.id" *ngFor="let brand of brands">{{brand.name}}</nb-option>
+                  </nb-select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="label">Description</label>
+                  <textarea ngModel name="description" nbInput fullWidth autocomplete="off" placeholder="Product Description"></textarea>
+                </div>
+                <div class="text-right col-12">
+                  <button (click)="updateItem(updateProductForm, product.id)"
+                          type="button"
+                          [disabled]="updateProductForm.invalid"
+                          class="btn btn-primary btn-sm mr-3">Update</button>
+                  <button (click)="productIdToEdit = ''" class="btn btn-dark btn-sm">Cancel</button>
+                </div>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </ul>
       </nb-card-body>
     </nb-card>
   </div>

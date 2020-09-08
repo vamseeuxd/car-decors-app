@@ -19,6 +19,7 @@ import { ManageSubcategoriesComponent } from './manage-subcategories/manage-subc
 import { ManageProductComponent } from './manage-product/manage-product.component';
 import { FormsModule as ngFormsModule } from '@angular/forms';
 import {AngularFireModule} from '@angular/fire';
+import {ManageBrandComponent} from './manage-brand/manage-brand.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import {AngularFireModule} from '@angular/fire';
     ManageProductComponent,
     ManageCategoriesComponent,
     ManageSubcategoriesComponent,
+    ManageBrandComponent,
   ],
 })
 export class ProductsModule { }

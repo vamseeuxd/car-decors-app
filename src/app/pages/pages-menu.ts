@@ -81,6 +81,10 @@ export const MENU_ITEMS = [
         link: '/pages/products/manage-subcategories',
       },
       {
+        title: 'Manage Brand',
+        link: '/pages/products/manage-brand',
+      },
+      {
         title: 'Manage Product',
         link: '/pages/products/manage-product',
       },

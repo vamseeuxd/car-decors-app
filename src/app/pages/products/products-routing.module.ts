@@ -5,6 +5,7 @@ import { ProductsComponent } from './products.component';
 import { ManageCategoriesComponent } from './manage-categories/manage-categories.component';
 import { ManageSubcategoriesComponent } from './manage-subcategories/manage-subcategories.component';
 import { ManageProductComponent } from './manage-product/manage-product.component';
+import {ManageBrandComponent} from './manage-brand/manage-brand.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'manage-product',
         component: ManageProductComponent,
+      },
+      {
+        path: 'manage-brand',
+        component: ManageBrandComponent,
       },
     ],
   },
