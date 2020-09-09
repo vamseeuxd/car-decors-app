@@ -60,7 +60,7 @@ export const MENU_ITEMS = [
       },
       {
         title: 'Buttons',
-        link: '/pages/forms/manage-product',
+        link: '/pages/forms/manage-users',
       },
       {
         title: 'Datepicker',
@@ -86,29 +86,17 @@ export const MENU_ITEMS = [
       },
       {
         title: 'Manage Product',
-        link: '/pages/products/manage-product',
+        link: '/pages/products/manage-users',
       },
     ],
   },
   {
-    title: 'staff',
+    title: 'users',
     icon: 'people-outline',
     children: [
       {
-        title: 'Form Inputs',
-        link: '/pages/staff/inputs',
-      },
-      {
-        title: 'Form Layouts',
-        link: '/pages/staff/layouts',
-      },
-      {
-        title: 'Buttons',
-        link: '/pages/staff/manage-product',
-      },
-      {
-        title: 'Datepicker',
-        link: '/pages/staff/datepicker',
+        title: 'Manage Users',
+        link: '/pages/users/manage-users',
       },
     ],
   },

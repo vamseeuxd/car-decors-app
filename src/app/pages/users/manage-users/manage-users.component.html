@@ -1,0 +1,74 @@
+<div class="lists row">
+  <div class="col-md-12 col-lg-10 col-xxxl-8 offset-lg-1 offset-xxxl-2">
+    <nb-card class="list-card">
+      <nb-card-header>
+        <h4 class="text-muted">Manage Users</h4>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="text-right">
+          <button class="btn mr-4 btn-sm btn-primary" (click)="addUserModal.show()">Add New User</button>
+        </div>
+        <ul class="list-group m-3" *ngIf="users$ | async as users" style="overflow-y: auto; max-height: calc( 100vh - 375px);">
+          <!--<pre>{{users | json}}</pre>-->
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+              *ngFor="let user of users">
+            <ng-container *ngIf="UserIdToEdit != user.id">
+              <label>{{user.name}}</label>
+              <pre>{{user | json}}</pre>
+              <div>
+                <button class="btn btn-warning btn-sm mr-2" (click)="UserIdToEdit = user.id">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" (click)="deleteItem(user.id)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </ng-container>
+          </li>
+        </ul>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div bsModal #addUserModal="bs-modal" class="modal fade"  [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="dialog-sizes-name1" class="modal-title pull-left text-muted">Add User</h5>
+        <button type="button" class="close pull-right" (click)="addUserModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addUserForm="ngForm" class="list-group-item border-top-0 border-left-0 border-right-0">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label class="label">Name</label>
+              <input ngModel required name="name" type="text" nbInput fullWidth autocomplete="off" placeholder="Name">
+            </div>
+
+            <div class="form-group col-md-6">
+              <label class="label">Email</label>
+              <input ngModel required name="email" type="email" email nbInput fullWidth autocomplete="off" placeholder="Email">
+            </div>
+
+            <div class="form-group col-md-6">
+              <label class="label">Date of Birth</label>
+              <input ngModel required name="dateOfBirth" type="date" nbInput fullWidth autocomplete="off" placeholder="Date of Birth">
+            </div>
+
+            <div class="form-group col-md-6">
+              <label class="label">Phone</label>
+              <input ngModel required name="phone" type="tel" nbInput fullWidth autocomplete="off" placeholder="Phone">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="model-footer text-right pb-3 pr-3">
+        <button class="btn btn-dark mr-2 btn-sm" (click)="addUserForm.resetForm({});addUserModal.hide()">Cancel</button>
+        <button class="btn btn-primary btn-sm" (click)="addItem(addUserForm,addUserModal)" [disabled]="addUserForm.invalid">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

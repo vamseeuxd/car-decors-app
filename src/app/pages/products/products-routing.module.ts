@@ -21,7 +21,7 @@ const routes: Routes = [
         component: ManageSubcategoriesComponent,
       },
       {
-        path: 'manage-product',
+        path: 'manage-users',
         component: ManageProductComponent,
       },
       {

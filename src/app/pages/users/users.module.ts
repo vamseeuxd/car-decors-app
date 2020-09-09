@@ -12,13 +12,11 @@ import {
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
-import { FormsRoutingModule } from './forms-routing.module';
-import { FormsComponent } from './forms.component';
-import { FormInputsComponent } from './form-inputs/form-inputs.component';
-import { FormLayoutsComponent } from './form-layouts/form-layouts.component';
-import { DatepickerComponent } from './datepicker/datepicker.component';
-import { ButtonsComponent } from './buttons/buttons.component';
+import { UsersRoutingModule } from './users-routing.module';
+import { UsersComponent } from './users.component';
 import { FormsModule as ngFormsModule } from '@angular/forms';
+import {ManageUsersComponent} from './manage-users/manage-users.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   imports: [
@@ -31,17 +29,15 @@ import { FormsModule as ngFormsModule } from '@angular/forms';
     NbCheckboxModule,
     NbRadioModule,
     NbDatepickerModule,
-    FormsRoutingModule,
+    UsersRoutingModule,
     NbSelectModule,
     NbIconModule,
     ngFormsModule,
+    ModalModule.forRoot(),
   ],
   declarations: [
-    FormsComponent,
-    ButtonsComponent,
-    FormInputsComponent,
-    FormLayoutsComponent,
-    DatepickerComponent,
+    UsersComponent,
+    ManageUsersComponent,
   ],
 })
-export class FormsModule { }
+export class UsersModule { }

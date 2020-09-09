@@ -34,9 +34,9 @@ const routes: Routes = [{
         .then(m => m.ProductsModule),
     },
     {
-      path: 'staff',
-      loadChildren: () => import('./staff/forms.module')
-        .then(m => m.FormsModule),
+      path: 'users',
+      loadChildren: () => import('./users/users.module')
+        .then(m => m.UsersModule),
     },
     {
       path: 'ui-features',
